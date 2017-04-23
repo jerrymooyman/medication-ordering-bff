@@ -7,6 +7,7 @@ const {
 } = graphql
 const MedicationType = require('./MedicationType')
 const PatientType = require('./PatientType')
+const StaffType = require('./StaffType')
 
 const axios = require('axios')
 const apiUrl = 'http://localhost:3000'
@@ -29,7 +30,14 @@ const MedicationOrderType = new GraphQLObjectType({
           .then(res => res.data)
       }
     },
-    dose: { type: new GraphQLNonNull(GraphQLString) }
+    dose: { type: new GraphQLNonNull(GraphQLString) },
+    requestedBy: {
+      type: new GraphQLNonNull(StaffType),
+      resolve (parentValue, args) {
+        return axios.get(`${apiUrl}/staff/${parentValue.requestedById}`)
+          .then(res => res.data)
+      }
+    },
   })
 })
 
