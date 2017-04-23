@@ -8,9 +8,11 @@ const {
 const MedicationType = require('./MedicationType')
 const PatientType = require('./PatientType')
 const StaffType = require('./StaffType')
+const PriorityType = require('./PriorityType')
 
+const { api } = require('../config.json')
+const apiUrl = `${api.host}:${api.port}`
 const axios = require('axios')
-const apiUrl = 'http://localhost:3000'
 
 const MedicationOrderType = new GraphQLObjectType({
   name: 'MedicationOrder',
@@ -38,6 +40,8 @@ const MedicationOrderType = new GraphQLObjectType({
           .then(res => res.data)
       }
     },
+    priority: { type: PriorityType },
+    requiredByTime: { type: GraphQLString }
   })
 })
 

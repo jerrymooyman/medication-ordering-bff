@@ -6,11 +6,11 @@ const {
   GraphQLList,
   GraphQLNonNull
 } = graphql
+const { api } = require('../config.json')
+const apiUrl = `${api.host}:${api.port}`
+const axios = require('axios')
 
 const MedicationOrderType = require('../types/medicationOrderType')
-
-const axios = require('axios')
-const apiUrl = 'http://localhost:3000'
 
 const RootQuery = new GraphQLObjectType({
   name: 'RootQuery',
